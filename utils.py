@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import scipy.stats as st
 from plotnine import *
+import seaborn as sns
+from sklearn.linear_model import LinearRegression
 
 #cleaning
 def check_missing(df):
@@ -47,8 +49,35 @@ def replace_dict(x, d):
                 return key
     return 'others'
 
+
 #visualization
-from sklearn.linear_model import LinearRegression
+def cat_plot(df,col):
+    g = (ggplot(df,aes(x=col,fill=col)) + 
+         geom_bar(stat='bin', #histogram
+                  binwidth=0.5, #histogram binwidth
+                  bins=len(df[col].unique())) + #how many bins
+         theme_minimal() + theme(axis_text_x=element_blank())
+        )
+    return g
+
+def depcat_plot(df,dep,cat, no_outliers=True, geom=geom_boxplot()):
+    if no_outliers:
+        new_df = remove_outliers(df,dep)
+    else:
+        new_df = df.copy()
+    g = (ggplot(new_df, aes(x=cat,y=dep)) +
+         geom + theme_minimal() 
+        )
+    return g
+
+def jointplot(df,col_x, col_y, no_outliers=True, kind='reg'): #'scatter','resid','reg','hex','kde','point'
+    if no_outliers:
+        new_df = remove_outliers(df,col_x)
+        new_df = remove_outliers(new_df,col_y)
+    else:
+        new_df = df.copy()
+    return sns.jointplot(new_df[col_x],new_df[col_y],kind=kind)
+
 def calc_qq(df,col):
     sample_qs = [(np.percentile(df[col],i)-np.mean(df[col]))/np.std(df[col]) for i in range(5,100,5)]
     theoretical_qs = [st.norm.ppf(i/100) for i in range(5,100,5)]
@@ -67,6 +96,7 @@ def qq_plot(df,col):
         theme_minimal() +
         labs(x='Theoretical Quantiles (normalized)', y='Sample Qunatiles (normalized)'))
     return g
+
 
 #transformation
 def boxcox(ser,lamb=0):
