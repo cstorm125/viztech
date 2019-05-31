@@ -51,6 +51,10 @@ def replace_dict(x, d):
 
 
 #visualization
+def thai_text(font_size=8): 
+    #thanks to @korakot for Thai font with plotnine
+    return theme(text=element_text(size=font_size,  family='TH Sarabun New'))
+
 def cat_plot(df,col):
     g = (ggplot(df,aes(x=col,fill=col)) + 
          geom_bar(stat='bin', #histogram
