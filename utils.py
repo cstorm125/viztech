@@ -2,8 +2,6 @@ import numpy as np
 import pandas as pd
 import scipy.stats as st
 from plotnine import *
-from mizani.breaks import *
-from mizani.formatters import *
 import seaborn as sns
 from sklearn.linear_model import LinearRegression
 
@@ -108,8 +106,8 @@ def catcat_plot(df, cat_dep, cat_ind):
     df_agg['per'] = df_agg.cnt_x / df_agg.cnt_y
     g = (ggplot(df_agg,aes(x=cat_dep, y='per',fill=cat_dep)) + 
          geom_col() + 
+         geom_text(aes(x=cat_dep,y='per',label='cnt_x')) +
          theme(axis_text_x = element_blank()) +
-         scale_y_continuous(labels=percent_format()) +
          facet_wrap(f'~{cat_ind}')) + theme(panel_spacing_x=0.5)
     return g
 
