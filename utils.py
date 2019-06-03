@@ -68,11 +68,12 @@ def thai_text(font_size=11):
     return theme(text=element_text(size=font_size,  family='TH Sarabun New'))
 
 def cat_plot(df,col):
-    g = (ggplot(df,aes(x=col,fill=col)) + 
+    g = (ggplot(df,aes(x=col)) + 
          geom_bar(stat='bin', #histogram
                   binwidth=0.5, #histogram binwidth
                   bins=len(df[col].unique())) + #how many bins
-         theme(axis_text_x=element_blank())
+         coord_flip()
+#          theme(axis_text_x=element_blank())
         )
     return g
 
@@ -86,10 +87,28 @@ def numcat_plot(df,num,cat, no_outliers=True, geom=geom_boxplot()):
         )
     return g
 
+def numdist_plot(df, num,cat, geom=geom_density(alpha=0.5), no_outliers=True):
+    if no_outliers:
+        new_df = remove_outliers(df,num)
+    else:
+        new_df = df.copy()
+    g = (ggplot(new_df,aes(x=num, fill=cat)) +
+          geom 
+        )
+    return g
+
 def catcat_plot(df, cat_dep, cat_ind):
-    g = (ggplot(df,aes(x=cat_dep,fill=cat_dep)) + geom_bar() + 
+    plot_df = df.copy()
+    plot_df['cnt'] = 1
+    df_total = plot_df[[cat_ind,'cnt']].groupby(cat_ind).count().reset_index()
+    df_agg = plot_df[[cat_dep,cat_ind,'cnt']].groupby([cat_dep,cat_ind]).count().reset_index()
+    df_agg = df_agg.merge(df_total,on='color')
+    df_agg['per'] = df_agg.cnt_x / df_agg.cnt_y
+    g = (ggplot(df_agg,aes(x=cat_dep, y='per',fill=cat_dep)) + 
+         geom_col() + 
          theme(axis_text_x = element_blank()) +
-         facet_wrap(f'~{cat_ind}',scales='free_y')) + theme(panel_spacing_x=0.5)
+         scale_y_continuous(labels=percent_format()) +
+         facet_wrap(f'~{cat_ind}')) + theme(panel_spacing_x=0.5)
     return g
 
 def value_dist_plot(df,bins=30):
