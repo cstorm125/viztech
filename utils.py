@@ -171,3 +171,20 @@ def boxcox_lamb_df(ser, ls = [i/10 for i in range(-30,31,5)]):
 def boxcox_lamb(ser, ls = [i/10 for i in range(-30,31,5)]):
     df = boxcox_lamb_df(ser,ls)
     return df.lamb[df.coef.idxmax()]
+
+#formatters
+class k_format(custom_format):
+    def k_ize(self,x):
+        #format one tick
+        return f'{int(x/1000)}k'
+    def __call__(self,x):
+        #format a list of ticks
+        return [self.k_ize(i) for i in x]
+
+class m_format(custom_format):
+    def m_ize(self,x):
+        #format one tick
+        return f'{int(abs(x)/1e6)}M'
+    def __call__(self,x):
+        #format a list of ticks
+        return [self.m_ize(i) for i in x]
