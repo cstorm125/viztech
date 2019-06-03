@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import scipy.stats as st
 from plotnine import *
+from mizani.breaks import *
+from mizani.formatters import *
 import seaborn as sns
 from sklearn.linear_model import LinearRegression
 
