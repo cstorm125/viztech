@@ -190,3 +190,10 @@ class m_format(custom_format):
     def __call__(self,x):
         #format a list of ticks
         return [self.m_ize(i) for i in x]
+    
+class prettynum_format(currency_format):
+    def __init__(self, prefix='', suffix='', digits=0, big_mark=','):
+        self.prefix = prefix
+        self.suffix = suffix
+        self.digits = digits
+        self.big_mark = big_mark
