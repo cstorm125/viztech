@@ -14,3 +14,5 @@ Each notebook contains `plotnine`/`ggplot` replication of the following topics, 
 
 We also have an original notebook specifically designed to use as data exploration tool.
 * `explore.ipynb`: data visualization for exploring a dataset. The goal is to understand more about the data as a human, not to make beautiful graphs, communicate, or feature engineering input into models.
+
+Some plots are intentionally not implemented because we think they are not good visualization practice such as pie charts and some we simply have not found an intuitive way to implement them either with `ggplot` or a simple python package yet such as sankeys, chords, networks and voronoi.
