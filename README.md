@@ -1,7 +1,7 @@
 # viztech
 Plotnine replication of [Financial Times Visual Vocabulary](https://github.com/ft-interactive/chart-doctor/tree/master/visual-vocabulary); Inspired by [Vega](https://gramener.github.io/visual-vocabulary-vega/)
 
-This repository intends to be a kitchen sink for intuitive data visualization in Python, both for exploration and presentation. We primarily use [plotnine](https://plotnine.readthedocs.io/en/stable/), a Python implementation of the [grammar of graphics](http://vita.had.co.nz/papers/layered-grammar.pdf) library [ggplot](https://ggplot2.tidyverse.org). We use some other Python packages if the plots can be plotted more intuitively with them.
+This repository intends to be a kitchen sink for intuitive data visualization in Python, both for exploration and presentation. We primarily use [plotnine](https://plotnine.readthedocs.io/en/stable/), a Python implementation of the [grammar of graphics](http://vita.had.co.nz/papers/layered-grammar.pdf) library [ggplot](https://ggplot2.tidyverse.org). We use some other Python packages if the plots can be plotted more intuitively with them. `viztech` is under [Apache 2.0 License](https://tldrlegal.com/license/apache-license-2.0-%28apache-2.0%29).
 
 We have an original notebook specifically designed to use as data exploration tool.
 * `explore.ipynb`: data visualization for exploring a dataset. The goal is to understand more about the data as a human, not to make beautiful graphs, communicate, or feature engineering input into models.
